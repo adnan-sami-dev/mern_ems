@@ -21,8 +21,8 @@ const App = () => {
       <Routes>
         <Route path="/login" element = { <LoginPage /> } />
  
-        <Route path="/login/admin" element={<LoginForms role={admin} heading="Admin Portal" subheading="Login to the Admin Portal" />} />  
-        <Route path="/login/employee" element={<LoginForms role={employee} heading="Employee Portal" subheading="Login to the Employee Portal" />} />
+        <Route path="/login/admin" element={<LoginForms role={"admin"} heading={"Admin Portal"} subheading={"Login to the Admin Portal"} />} />  
+        <Route path="/login/employee" element={<LoginForms role={"employee"} heading={"Employee Portal"} subheading={"Login to the Employee Portal"} />} />
 
         <Route element={<LayoutPage />}>
           <Route path="/dashboard" element={<DashboardPage />}/>
