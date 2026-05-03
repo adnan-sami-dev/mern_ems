@@ -10,11 +10,11 @@ const LoginPage = () => {
             </div>
       </div>
 
-      <div className="flex-1 bg-gray-300" >
+      <div className="flex-1 bg-gray-300 flex items-center justify-center" >
         {/* Header */}
         <div className= "text-center md:text-left">
           <h2 className="text-3xl mb-3 font-medium text-slate-900">Welcome</h2>
-          <p className="text-slate-500">Select your portal</p>
+          <p className="text-slate-500">Select your portal . . .</p>
         </div>
 
         {/* Portal list */}
