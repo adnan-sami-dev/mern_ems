@@ -26,9 +26,9 @@ const LoginPage = () => {
             </div>
       </div>
 
-      <div className="flex-1 bg-gray-300 flex items-center justify-center" >
+      <div className="flex-1 bg-gray-300 flex flex-col justify-center p-[7vw]" >
         {/* Header */}
-        <div className= "text-center md:text-left">
+        <div className= "md:text-left mb-4">
           <h2 className="text-3xl mb-2 font-medium text-slate-900">Welcome</h2>
           <p className="text-slate-500">Select your portal . . .</p>
         </div>
@@ -36,7 +36,7 @@ const LoginPage = () => {
         {/* Portal list */}
         <div className="flex gap-1 flex-col">
           {
-            PortalSelections.map( (portal) => {
+            PortalSelections.map( (portal) => (
               <Link key={portal.to} to={portal.to}>
                 <button className="block w-full p-3 sm:p-6 border rounded-lg hover:bg-slate-400 hover:cursor-pointer">
                   <h3>
@@ -44,7 +44,7 @@ const LoginPage = () => {
                   </h3>
                 </button>
               </Link>
-            })
+            ))
           }
         </div>
 
