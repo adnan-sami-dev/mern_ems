@@ -1,6 +1,6 @@
 import React from 'react'
 import LoginBanner from './LoginBanner'
-import { ArrowLeftIcon, Eye, EyeOff } from 'lucide-react'
+import { ArrowLeftIcon, Eye, EyeOff, Loader } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 
@@ -46,11 +46,16 @@ const LoginForms = ({role, heading, subheading}) => {
                 <input type={showPassword ? "text" : "password"} onChange={(e) => setPassword(e.target.value)} value={password} 
                 required placeholder="........" className = "pr-11" />
                 <button type="button" onClick={() => setShowPassword(!showPassword)}
-                  className = "absolute right-0 top-0 translate-y-2.5 -translate-x-2 text-slate-700">
+                  className = "cursor-pointer absolute right-0 top-0 translate-y-2.5 -translate-x-2 text-slate-700">
                   {showPassword? <EyeOff size={18} /> : <Eye size={18} />}
                 </button>
               </div>
             </div>
+            <button type="submit" onClick={handleLogin()}
+              disabled={loading}
+              className = "text-xs md:text-sm disabled-50 flex w-full justify-center py-2 bg-slate-600 text-slate-200 rounded-full hover:bg-slate-700 cursor-pointer" >
+                {loading? <Loader className = "h-4 w-4 animate-spin mr-2" /> : "Login"}
+            </button>
           </form>
         </div> 
         )}
