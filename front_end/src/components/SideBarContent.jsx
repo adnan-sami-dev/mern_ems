@@ -2,7 +2,7 @@ import { LogOutIcon, UserIcon } from 'lucide-react'
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const SideBarContent = () => {
+const SideBarContent = ({ username, role }) => {
   return (
     <div className="flex flex-col h-full">
         {/* App Header */}
@@ -14,15 +14,20 @@ const SideBarContent = () => {
             </div>
         </div>
         {/* Profile Header */}
-        <div className="flex flex-row p-4 m-4 bg-slate-800 border border-slate-600 rounded-lg gap-4 items-center">
-            <div className = "bg-slate-500 p-2 rounded-full">
-                <UserIcon /> {/* image of user - add later */}
+        {
+            username &&
+            <div className="flex flex-row p-4 m-4 bg-slate-800 border border-slate-600 rounded-lg gap-4 items-center">
+                <div className = "bg-slate-500 p-2 rounded-lg w-10 h-10 flex items-center justify-center text-slate-200 font-bold text-lg">
+                    <span>{username.charAt(0).toUpperCase()}</span>
+                </div>
+                <div>
+                    <h2 className="text-slate-300 font-bold">{username}</h2>
+                    <span className="text-slate-400 text-sm">
+                        {role === "ADMIN" ? "Admin" : "Employee"} {/* add role from state - later */}
+                    </span> {/* add role from state - later */}
+                </div>
             </div>
-            <div>
-                <h2>User Name</h2> {/* add username from state - later */}
-                <span>Role</span> {/* add role from state - later */}
-            </div>
-        </div>
+        }
         {/* Menu Items */}
         <div className="flex flex-col p-4 gap-4">
             <h2 className="text-slate-500 font-bold text-sm uppercase tracking-widest">Navigation</h2>

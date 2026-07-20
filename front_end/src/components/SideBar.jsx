@@ -10,8 +10,10 @@ const SideBar = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
     useEffect(() => {
-        setUsername(dummyProfileData.username + " " + dummyProfileData.lastname)
+        setUsername(dummyProfileData.firstName + " " + dummyProfileData.lastName)
     }, []) // sets the username on component mount - once only!
+
+    const role = "" | "EMPLOYEE" // need to fetch from backend - for now, hardcoded to EMPLOYEE
 
     useEffect(() => {
         setMobileMenuOpen(false)
@@ -47,12 +49,12 @@ const SideBar = () => {
                         : "-translate-x-full"
                     }`}
             >
-                <SideBarContent className = "z-50" />
+                <SideBarContent className = "z-50" username={username} role={role} />
             </aside>
 
             {/* Desktop Menu */}
             <aside className = "hidden lg:flex flex-col h-full w-70 bg-slate-900 text-slate-200" >
-                <SideBarContent className = "z-50" />
+                <SideBarContent className = "z-50" username={username} role={role} />
             </aside>
         </div>
     )
