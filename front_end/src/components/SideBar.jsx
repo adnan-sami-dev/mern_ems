@@ -49,12 +49,12 @@ const SideBar = () => {
                         : "-translate-x-full"
                     }`}
             >
-                <SideBarContent className = "z-50" username={username} role={role} />
+                <SideBarContent className = "z-50" username={username} role={role} pathname={pathname} />
             </aside>
 
             {/* Desktop Menu */}
             <aside className = "hidden lg:flex flex-col h-full w-70 bg-slate-900 text-slate-200" >
-                <SideBarContent className = "z-50" username={username} role={role} />
+                <SideBarContent className = "z-50" username={username} role={role} pathname={pathname} />
             </aside>
         </div>
     )

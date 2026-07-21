@@ -2,8 +2,17 @@ import { LogOutIcon, UserIcon } from 'lucide-react'
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const SideBarContent = ({ username, role }) => {
-  return (
+const SideBarContent = ({ username, role, pathname }) => {
+    const navItems = [
+        { name: "Dashboard", path: "/dashboard" },
+        { name: "Attendance", path: "/attendance" },
+        { name: "Employees", path: "/employees", role: "ADMIN" }, // Only show for ADMIN
+        { name: "Leave", path: "/leave" },
+        { name: "Payslips", path: "/payslips" },
+        { name: "Settings", path: "/settings" }
+    ]
+
+    return (
     <div className="flex flex-col h-full">
         {/* App Header */}
         <div className = "flex flex-row items-center p-5 gap-4 border-b border-slate-700">
@@ -32,15 +41,25 @@ const SideBarContent = ({ username, role }) => {
         <div className="flex flex-col p-4 gap-4">
             <h2 className="text-slate-500 font-bold text-sm uppercase tracking-widest">Navigation</h2>
             <div>
-                <Link to = "/dashboard" className = "block p-2 rounded-lg hover:bg-slate-500  transition-colors duration-300">Dashboard</Link>
-                <Link to = "/attendance" className = "block p-2 rounded-lg hover:bg-slate-500  transition-colors duration-300">Attendance</Link>
-                
-                {/* a condition to check if user is admin */}
-                <Link to = "/employees" className = "block p-2 rounded-lg hover:bg-slate-500  transition-colors duration-300">Employees</Link>
-                
-                <Link to = "/leave" className = "block p-2 rounded-lg hover:bg-slate-500  transition-colors duration-300">Leave</Link>
-                <Link to = "/payslips" className = "block p-2 rounded-lg hover:bg-slate-500  transition-colors duration-300">Payslips</Link>
-                <Link to = "/settings" className = "block p-2 rounded-lg hover:bg-slate-500  transition-colors duration-300">Settings</Link>
+                {navItems
+                    .filter((item) => !item.role || item.role === role)
+                    .map((item) => {
+                        const isActive = pathname.startsWith(item.path)
+
+                        return (
+                            <Link
+                                key={item.path}
+                                to={item.path}
+                                className={`block p-2 rounded-lg transition-colors duration-300 mb-2 ${
+                                    isActive
+                                        ? "bg-slate-500"
+                                        : "hover:bg-slate-700"
+                                }`}
+                            >
+                                {item.name}
+                            </Link>
+                        )
+                    })}
             </div>
         </div>
         {/* Logout Button */}
@@ -51,7 +70,7 @@ const SideBarContent = ({ username, role }) => {
             </div>
         </div>
     </div>
-  )
+    )
 }
 
 export default SideBarContent
