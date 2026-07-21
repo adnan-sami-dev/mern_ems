@@ -8,6 +8,7 @@ import AttendancePage from "./pages/attendance"
 import PayslipsPage from "./pages/payslips"
 import PrintPayslipPage from "./pages/printpayslip"
 import SettingsPage from "./pages/settings"
+import LeavePage from "./pages/leave"
 
 
 import "./index.css"
@@ -28,7 +29,7 @@ const App = () => {
           <Route path="/dashboard" element={<DashboardPage />}/>
           <Route path="/employees" element={<EmployeesPage />}/>
           <Route path="/attendance" element={<AttendancePage/>}/>
-          <Route path="/leave" element={<DashboardPage />}/>
+          <Route path="/leave" element={<LeavePage />}/>
           <Route path="/payslips" element={<PayslipsPage />}/>
           <Route path="/settings" element={<SettingsPage />}/>
         </Route>
