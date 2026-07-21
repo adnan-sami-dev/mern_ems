@@ -60,6 +60,7 @@ const SideBarContent = ({ username, role, pathname }) => {
                             </Link>
                         )
                     })}
+                    
             </div>
         </div>
         {/* Logout Button */}
