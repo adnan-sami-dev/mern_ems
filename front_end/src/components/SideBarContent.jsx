@@ -1,6 +1,6 @@
 import { LogOutIcon, UserIcon } from 'lucide-react'
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const SideBarContent = ({ username, role, pathname }) => {
     const navItems = [
@@ -11,6 +11,13 @@ const SideBarContent = ({ username, role, pathname }) => {
         { name: "Payslips", path: "/payslips" },
         { name: "Settings", path: "/settings" }
     ]
+
+    const navigate = useNavigate()
+
+    const handleLogout = () => {
+        // if using JWT/cookies clear out auth data (eg. remove "token" from local storage)
+        navigate("/login") // better than window.location.href
+    }
 
     return (
     <div className="flex flex-col h-full">
@@ -65,7 +72,7 @@ const SideBarContent = ({ username, role, pathname }) => {
         </div>
         {/* Logout Button */}
         <div className="mt-auto">
-            <div className="flex flex-row items-center p-4 m-4 bg-slate-800 border border-slate-600 rounded-lg gap-4 cursor-pointer hover:bg-slate-500 transition-colors duration-300">
+            <div onClick={handleLogout} className="flex flex-row items-center p-4 m-4 bg-slate-800 border border-slate-600 rounded-lg gap-4 cursor-pointer hover:bg-slate-500 transition-colors duration-300">
                 <LogOutIcon size={20} className = "text-slate-300"/>
                 <span>Log out</span>
             </div>
