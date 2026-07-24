@@ -16,7 +16,7 @@ const SideBarContent = ({ username, role, pathname }) => {
 
     const handleLogout = () => {
         // if using JWT/cookies clear out auth data (eg. remove "token" from local storage)
-        navigate("/login") // better than window.location.href
+        navigate("/login", { replace: true }) // better than window.location.href
     }
 
     return (
@@ -70,6 +70,7 @@ const SideBarContent = ({ username, role, pathname }) => {
                     
             </div>
         </div>
+        
         {/* Logout Button */}
         <div className="mt-auto">
             <div onClick={handleLogout} className="flex flex-row items-center p-4 m-4 bg-slate-800 border border-slate-600 rounded-lg gap-4 cursor-pointer hover:bg-slate-500 transition-colors duration-300">
