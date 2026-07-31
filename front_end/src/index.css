@@ -8,7 +8,7 @@
 @layer utilities {
     /* Card styles */
     .card {
-        @apply bg-white rounded-lg border border-slate-200/70;
+        @apply bg-slate-200 rounded-lg border border-slate-200/70;
     }
     .card-hover {
         @apply hover:-translate-y-0.5 transition-all duration-300;
@@ -73,10 +73,10 @@
         @apply mb-8;
     }
     .page-title {
-        @apply text-2xl font-medium text-slate-900 tracking-tight;
+        @apply text-2xl font-medium text-slate-900 tracking-tight text-center lg:text-left;
     }
     .page-subtitle {
-        @apply text-slate-500 text-sm mt-1;
+        @apply text-slate-500 text-sm md:text-base mt-1 text-center lg:text-left;
     }
 
     /* Animations */

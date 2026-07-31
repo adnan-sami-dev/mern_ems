@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { dummyEmployeeDashboardData } from '../assets/assets'
 import LoadingSpinner from '../components/LoadingSpinner'
+import EmployeeDashboard from '../components/EmployeeDashboard'
 
 const DashboardPage = () => {
   const [data, setData] = useState(null)
@@ -22,6 +23,7 @@ const DashboardPage = () => {
     return <div className="text-center py-12 text-slate-500">Failed to load dashboard</div>
   }
 
+  // I'm assuming role is passed down from data, which is fetched based on role determined at login ?
   if (data.role === 'ADMIN') {
     return (
       <div>
@@ -30,9 +32,7 @@ const DashboardPage = () => {
     )
   } else {
     return (
-      <div>
-        <h1>Employee Dashboard</h1>
-      </div>
+      <EmployeeDashboard data={data} />
     )
   }
 
