@@ -13,7 +13,7 @@ const SideBar = () => {
         setUsername(dummyProfileData.firstName + " " + dummyProfileData.lastName)
     }, []) // sets the username on component mount - once only!
 
-    const role = "" | "EMPLOYEE" // need to fetch from backend - for now, hardcoded to EMPLOYEE
+    const role = "ADMIN" // need to fetch from backend - for now, hardcoded to EMPLOYEE
 
     useEffect(() => {
         setMobileMenuOpen(false)

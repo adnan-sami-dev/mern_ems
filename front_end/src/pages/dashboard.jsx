@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
-import { dummyEmployeeDashboardData } from '../assets/assets'
+import { dummyEmployeeDashboardData, dummyAdminDashboardData } from '../assets/assets'
 import LoadingSpinner from '../components/LoadingSpinner'
 import EmployeeDashboard from '../components/EmployeeDashboard'
+import AdminDashboard from '../components/AdminDashboard'
 
 const DashboardPage = () => {
   const [data, setData] = useState(null)
@@ -9,7 +10,7 @@ const DashboardPage = () => {
 
   useEffect(() => {
     // Simulate fetching data from an API
-    setData(dummyEmployeeDashboardData)
+    setData(dummyAdminDashboardData)
     setTimeout(() => {
       setLoading(false)
     }, 1000)
@@ -26,9 +27,7 @@ const DashboardPage = () => {
   // I'm assuming role is passed down from data, which is fetched based on role determined at login ?
   if (data.role === 'ADMIN') {
     return (
-      <div>
-        <h1>Admin Dashboard</h1>
-      </div>
+      <AdminDashboard data={data} />
     )
   } else {
     return (
