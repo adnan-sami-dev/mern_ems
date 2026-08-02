@@ -5,7 +5,6 @@ import { Link, useNavigate } from 'react-router-dom'
 const SideBarContent = ({ username, role, pathname }) => {
     const navItems = [
         { name: "Dashboard", path: "/dashboard" },
-        { name: "Attendance", path: "/attendance" },
         { name: "Employees", path: "/employees", role: "ADMIN" }, // Only show for ADMIN
         { name: "Leave", path: "/leave" },
         { name: "Payslips", path: "/payslips" },
