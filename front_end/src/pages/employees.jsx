@@ -1,11 +1,13 @@
-import {useState, useEffect, useCallback} from 'react'
-import {dummyAdminDashboardData} from '../assets/assets'
+import {useState, useEffect, useCallback, useMemo} from 'react'
+import {dummyEmployeeData, DEPARTMENTS} from '../assets/assets'
+import {Pencil, Trash} from 'lucide-react'
 
 const EmployeesPage = () => {
   const [employees, setEmployees] = useState([])
   const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedDept, setSelectedDept] = useState('All')
+  const [showCreateModal, setShowCreateModal] = useState(false)
 
   // useCallback() memoizes the function so that it doesn't get recreated on every render, 
   // which can help with performance if the function is passed down to child components 
@@ -19,11 +21,14 @@ const EmployeesPage = () => {
   */
   const fetchEmployees = useCallback(async() => {
     setLoading(true)
-    setEmployees(dummyAdminDashboardData)
+    const deptFilteredEmployees = selectedDept === 'All' 
+                                  ? dummyEmployeeData 
+                                  : dummyEmployeeData.filter((employee) => employee.department === selectedDept)
+    setEmployees(deptFilteredEmployees)
     setTimeout(() => {
       setLoading(false)
     }, 1000)
-  })
+  }, [selectedDept])
 
   /* 
       Don't use useEffect if:
@@ -32,7 +37,31 @@ const EmployeesPage = () => {
   useEffect(() => {
     // Fetch employees data
     fetchEmployees()
-  }, [])
+  }, [fetchEmployees])
+
+  const filteredEmployees = useMemo(() => {
+    if (!searchTerm.trim()) return employees // Skip filtering if empty
+    
+    const search = searchTerm.toLowerCase().trim()
+
+    return employees.filter((employee) => {
+      const fullName = `${employee.firstName} ${employee.lastName}`.toLowerCase()
+      return fullName.includes(search)
+    })
+  }, [employees, searchTerm]) // Only re-calculate when employees (based on dept choice) or searchTerm change
+
+  const EditEmployee = (employee) => {
+    console.log('Edit employee:', employee)
+  }
+
+  const DeleteEmployee = async(employee) => {
+    if (!confirm(`Are you sure you want to delete ${employee.firstName} ${employee.lastName}?`)) {
+      return
+    } else {
+      setEmployees(prev => prev.filter(emp => emp.id !== employee.id));
+    }
+  }
+
 
   return (
     <div className="animate-fade-in p-5">
@@ -46,24 +75,78 @@ const EmployeesPage = () => {
             Manage your employees here
           </p>
         </div>
-        <button className="bg-slate-800 text-white px-4 py-2 rounded hover:bg-slate-700 cursor-pointer transition-colors duration-300">
+        <button onClick={() => setShowCreateModal(true)} 
+          className="bg-slate-800 text-white px-4 py-2 rounded hover:bg-slate-700 cursor-pointer transition-colors duration-300">
           <span className="mr-2 font-medium text-lg">+</span> Employee
         </button>
       </div>
 
       {/* Search */}
-      <div className="flex items-center mb-4">
+      <div className="flex flex-col sm:flex-row gap-4 mb-4">
         <input
           type="text"
           placeholder="Search employees..."
-          className="border border-gray-300 rounded py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="flex-1 border border-gray-300 rounded py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
+        <select
+          className="max-w-40 border border-gray-300 rounded py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          value={selectedDept}
+          onChange={(e) => setSelectedDept(e.target.value)}
+        >
+          <option value="All">All Departments</option>
+          {DEPARTMENTS.map((dept) => (
+            <option key={dept} value={dept}>
+              {dept}
+            </option>
+          ))}
+        </select>
       </div>
 
       {/* Employee Grid */}
-      
+      {loading ? (
+        <div className="flex justify-center items-center h-64">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-0 border-b-2 border-blue-500"></div>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {filteredEmployees.map((employee) => (
+            <div key={employee.id} className="group relative bg-white shadow-md rounded-lg p-4">
+
+              <h3 className="text-lg font-semibold">{employee.firstName} {employee.lastName}</h3>
+
+              <p className="text-gray-600">{employee.email}</p>
+
+              <div className="bg-slate-200 text-slate-800 px-2 py-1 rounded mt-2 inline-block text-sm font-medium">
+                <p className="text-gray-600">{employee.department}</p>
+              </div>
+
+              <div className="lg:group-hover:opacity-100 lg:opacity-0 transition-opacity duration-300 items-center justify-center text-slate-500 absolute flex right-0 bottom-0 gap-3 p-4">
+                
+                <button onClick = {() => EditEmployee(employee)} 
+                  className="hover:text-slate-700 transition-colors duration-300 cursor-pointer">
+                  <Pencil className = "w-6 h-6" />
+                </button>
+
+                <button onClick = {() => DeleteEmployee(employee)}
+                  className="hover:text-red-700 transition-colors duration-300 cursor-pointer">
+                  <Trash className = "w-6 h-6" />
+                </button>
+
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Create Employee Modal */}
+      {showCreateModal && (
+        <div onClick={() => setShowCreateModal(false)} 
+          className="fixed inset-0 bg-black/40 backdrop-blur-sm bg-opacity-50 flex items-start justify-center z-50">
+            
+        </div>
+      )}
     </div>
   )
 }
