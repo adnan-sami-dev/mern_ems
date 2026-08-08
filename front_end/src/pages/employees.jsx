@@ -1,6 +1,7 @@
 import {useState, useEffect, useCallback, useMemo} from 'react'
 import {dummyEmployeeData, DEPARTMENTS} from '../assets/assets'
-import {Pencil, Trash} from 'lucide-react'
+import {Pencil, Trash, X} from 'lucide-react'
+import CreateEmployeeForm from '../components/CreateEmployeeForm'
 
 const EmployeesPage = () => {
   const [employees, setEmployees] = useState([])
@@ -144,7 +145,27 @@ const EmployeesPage = () => {
       {showCreateModal && (
         <div onClick={() => setShowCreateModal(false)} 
           className="fixed inset-0 bg-black/40 backdrop-blur-sm bg-opacity-50 flex items-start justify-center z-50">
-            
+          
+
+          {/* Modal Content - event propagation stopped to prevent closing modal
+          upon clicking inside the modal */}
+
+          <div onClick={(e) => e.stopPropagation()}
+            className="bg-white shadow-2xl p-5 rounded-2xl w-full max-w-3xl my-8 animate-fade-in relative" >
+              
+            <h2 className="text-xl font-bold mb-4 mt-1">Add an Employee</h2>
+
+            <button onClick={() => setShowCreateModal(false)}
+              className="absolute top-6 right-4 text-gray-500 hover:text-gray-700 transition-colors duration-300 cursor-pointer">
+              <X />
+            </button>
+
+            {/* Modal Form */}
+            <div>
+              <CreateEmployeeForm />
+            </div>
+
+          </div>
         </div>
       )}
     </div>
