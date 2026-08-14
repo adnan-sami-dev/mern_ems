@@ -144,7 +144,7 @@ const EmployeesPage = () => {
       {/* Create Employee Modal */}
       {showCreateModal && (
         <div onClick={() => setShowCreateModal(false)} 
-          className="fixed inset-0 bg-black/40 backdrop-blur-sm bg-opacity-50 flex items-start justify-center z-50">
+          className="fixed inset-0 bg-black/40 backdrop-blur-sm bg-opacity-50 flex items-center justify-center z-50">
           
 
           {/* Modal Content - event propagation stopped to prevent closing modal
@@ -161,9 +161,7 @@ const EmployeesPage = () => {
             </button>
 
             {/* Modal Form */}
-            <div>
-              <CreateEmployeeForm />
-            </div>
+            <CreateEmployeeForm />
 
           </div>
         </div>
