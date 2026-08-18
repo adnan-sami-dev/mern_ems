@@ -9,6 +9,8 @@ const EmployeesPage = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedDept, setSelectedDept] = useState('All')
   const [showCreateModal, setShowCreateModal] = useState(false)
+  const [editEmployeeModal, setEditEmployeeModal] = useState(false)
+  const [currentEmployee, setCurrentEmployee] = useState(null)
 
   // useCallback() memoizes the function so that it doesn't get recreated on every render, 
   // which can help with performance if the function is passed down to child components 
@@ -52,7 +54,8 @@ const EmployeesPage = () => {
   }, [employees, searchTerm]) // Only re-calculate when employees (based on dept choice) or searchTerm change
 
   const EditEmployee = (employee) => {
-    console.log('Edit employee:', employee)
+    setEditEmployeeModal(true)
+    setCurrentEmployee(employee)
   }
 
   const DeleteEmployee = async(employee) => {
@@ -161,11 +164,36 @@ const EmployeesPage = () => {
             </button>
 
             {/* Modal Form */}
-            <CreateEmployeeForm />
+            <CreateEmployeeForm initialData = {null} />
 
           </div>
         </div>
       )}
+
+      {/* Edit Employee Modal */}
+      {
+        editEmployeeModal && (
+          <div onClick={() => setEditEmployeeModal(false)} 
+            className="fixed inset-0 bg-black/40 backdrop-blur-sm bg-opacity-50 flex items-center justify-center z-50">
+
+            <div onClick={(e) => e.stopPropagation()}
+              className="bg-white shadow-2xl p-5 rounded-2xl w-full max-w-3xl my-8 animate-fade-in relative" >
+
+              <h2 className="text-xl font-bold mb-4 mt-1">Edit Employee</h2>
+
+              <button onClick={() => setEditEmployeeModal(false)}
+                className="absolute top-6 right-4 text-gray-500 hover:text-gray-700 transition-colors duration-300 cursor-pointer">
+                <X />
+              </button>
+
+              {/* Modal Form */}
+              <CreateEmployeeForm initialData={currentEmployee}/>
+
+            </div>
+
+          </div>
+        )
+      }
     </div>
   )
 }
