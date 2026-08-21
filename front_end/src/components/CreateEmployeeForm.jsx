@@ -15,6 +15,8 @@ const CreateEmployeeForm = ({initialData}) => {
         {/* personal info */}
         <div className="bg-white p-3 rounded-lg shadow-md w-full grid grid-cols-1 gap-4 sm:grid-cols-2">
 
+          <h2 className="text-slate-900 font-medium mb-3 col-span-2">Personal Information</h2>
+
           {/* input - first name */}
           <div>
             <label for="firstName">First Name</label>
@@ -55,8 +57,10 @@ const CreateEmployeeForm = ({initialData}) => {
 
         {/* Job Details */}
         <div className="w-full">
-          <h2 className="text-slate-900 font-medium mb-3 text-center">Employment Details</h2>
+
           <div className="bg-white p-3 rounded-lg shadow-md w-full grid grid-cols-1 gap-4 sm:grid-cols-2">
+
+            <h2 className="text-slate-900 font-medium mb-3 col-span-2">Employment Details</h2>
 
             <div>
               <label for="department" >Department</label>
@@ -69,7 +73,39 @@ const CreateEmployeeForm = ({initialData}) => {
                 ))}
               </select>
             </div>
-            
+
+            {/* input - job title */}
+            <div>
+              <label for="jobTitle">Position</label>
+              <input name="jobTitle" type="text" defaultValue={initialData?.position} required />
+            </div>
+
+            {/* input - base salary */}
+            <div>
+              <label for="baseSalary">Base Salary</label>
+              <input name="baseSalary" type="number" defaultValue={initialData?.basicSalary || 0} min="0" step="0.01" required />
+            </div>
+
+            {/* input - base salary */}
+            <div>
+              <label for="allowances">Allowances</label>
+              <input name="allowances" type="number" defaultValue={initialData?.allowances || 0} min="0" step="0.01" required />
+            </div>
+
+            {/* input - base salary */}
+            <div>
+              <label for="deductions">Deductions</label>
+              <input name="deductions" type="number" defaultValue={initialData?.deductions || 0} min="0" step="0.01" required />
+            </div>
+
+            {/* input - employment status */}
+            <div>
+              <label for="employmentStatus">Employment Status</label>
+              <select name="employmentStatus" type="number" defaultValue={initialData?.employmentStatus} required >
+                
+              </select>
+            </div>
+
           </div>
         </div>
 
