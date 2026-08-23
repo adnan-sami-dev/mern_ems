@@ -101,8 +101,9 @@ const CreateEmployeeForm = ({initialData}) => {
             {/* input - employment status */}
             <div>
               <label for="employmentStatus">Employment Status</label>
-              <select name="employmentStatus" type="number" defaultValue={initialData?.employmentStatus} required >
-                
+              <select name="employmentStatus" defaultValue={initialData?.employmentStatus} required >
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
               </select>
             </div>
 
